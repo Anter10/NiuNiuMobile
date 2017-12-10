@@ -8,18 +8,16 @@ require("src.app.commonManager.Tools")
 
 
 function AllRequire.requireAll()
-	-- for i,models in pairs(AllRequire.ui) do
-		-- local lua = "src/app/views/"..models.__cname
-        package.loaded["src/app/views/gameHallScene"] = nil
+    package.loaded["src.app.commonManager.Tools"] = nil
+    package.loaded["src.app.commonManager.Tools"] = nil
+    -- package.loaded["app.layers.shop_view.ShopView"] = nil
 
-		 
-	-- end
-	print("ABCDEF")
-	AllRequire.ui.createRoom = require("src.app.layers.createRoom")
-	AllRequire.ui.HouseDetailView = require("src.app.layers.house_view.HouseDetailView")
-	AllRequire.ui.excessiveLayer = require("src.app.layers.excessiveLayer")
-	AllRequire.ui.gameHallScene = require("src/app/views/gameHallScene")
-	AllRequire.ui.ShopView = require("app.layers.shop_view.ShopView")
+    require("src.app.commonManager.Tools")
+	AllRequire.ui.createRoom = require("app.layers.createRoom")
+	AllRequire.ui.HouseDetailView = require("app.layers.house_view.HouseDetailView")
+	AllRequire.ui.excessiveLayer = require("app.layers.excessiveLayer")
+	-- AllRequire.ui.gameHallScene = require("src.app.views.gameHallScene")
+
 	AllRequire.ui.GameScene = require("app.views.GameScene")
 end
 

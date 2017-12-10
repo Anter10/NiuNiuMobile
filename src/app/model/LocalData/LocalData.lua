@@ -17,7 +17,7 @@ function LocalData:start_scheduler()
   local scheduler = cc.Director:getInstance():getScheduler()  
  
     self.schedulerID = scheduler:scheduleScriptFunc(function()  
-       self:update() 
+       self:updateSockt() 
     end,3,false)   
 
 end
@@ -31,14 +31,19 @@ end
 
 
 
-function LocalData:update()
+function LocalData:updateSockt()
   print("3秒走一次")
   dump(ServerWS:Instance().socket:getReadyState())
   if not hasInternet() or tonumber(ServerWS:Instance().socket:getReadyState())  ~= 1  then
      -- ServerWS:Instance():Destory()
      ServerWS:Instance():connect()
+     if cc.Director:getInstance():getRunningScene() then
+        cc.Director:getInstance():replaceScene(require("src.app.views.loadScene").new())
+     end  
+  else
+     ServerWS:Instance():ClientTickMsg()
   end
-  ServerWS:Instance():ClientTickMsg()
+  
 end
 
 function LocalData:Instance()  

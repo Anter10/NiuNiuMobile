@@ -1058,7 +1058,7 @@ int WebSocket::onClientWritable()
             // Safely done!
             else
             {
-                LOGD("Safely done, msg(%d)!\n", subThreadMsg->id);
+//                LOGD("Safely done, msg(%d)!\n", subThreadMsg->id);
                 if (remaining == frame->getFrameLength())
                 {
                     LOGD("msg(%u) append: %d + %d = %d\n", subThreadMsg->id, (int)data->issued, (int)frame->getFrameLength(), (int)(data->issued + frame->getFrameLength()));

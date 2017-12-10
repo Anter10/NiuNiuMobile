@@ -39,7 +39,7 @@ android {
         minSdkVersion 15
         targetSdkVersion PROP_TARGET_SDK_VERSION
         versionCode 2
-        versionName "2.0.0"
+        versionName "2.0.4"
 
 
 

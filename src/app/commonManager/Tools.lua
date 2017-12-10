@@ -9,13 +9,14 @@ Tools.allchannel = {
 }
 
 -- 当前渠道
-Tools.currentchannelid = "c1002"
+Tools.currentchannelid = "c1001"
 
 -- 当前是否是测试 1正式  2测试
 Tools.isceshi = 1
 
 -- 是否已经断网
-Tools.hasnet = true
+Tools.hasnet = false
+
 -- 渠道 和 Android版控制
 Tools.channelandioscompany = true
 
@@ -26,8 +27,9 @@ Tools.channels = {
         name = "掌间牛牛",
         channel = "zhangjian",
         gamename = "zhangjianniuniu",
+        wxkfh = "wx920097069";
         updatename = "niuniu",
-        sharecodeurl = "http://wx.sharkpoker.cn/index.php/Home/ShopReturn/getHhQrcode?account_id=",
+        sharecodeurl = "http://wx.sharkpoker.cn/index.php/Home/ShopReturn/getAppQrcode?account_id=",
         logo = "res/niuniu_denglu/n_logo.png"
     },
 
@@ -35,6 +37,7 @@ Tools.channels = {
         id   = "c1002",
         name = "和和牛牛",
         channel = "hehe",
+        wxkfh = "hhnnkf";
         gamename = "heheniuniu",
         updatename = "heheniuniu",
         sharecodeurl = "http://wx.sharkpoker.cn/index.php/Home/ShopReturn/getHhQrcode?account_id=",

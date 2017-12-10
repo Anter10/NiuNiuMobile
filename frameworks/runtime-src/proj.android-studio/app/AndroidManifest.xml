@@ -7,9 +7,9 @@
 
 
     <application
-        android:label="@string/app_name1"
+        android:label="@string/heheniuniu"
         android:versionCode="2"
-        android:versionName="2.0.0"
+        android:versionName="2.0.4"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:supportsRtl="true"
@@ -24,13 +24,12 @@
             android:name="org.cocos2dx.lua.AppActivity"
             android:screenOrientation="landscape"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name1"
+            android:label="@string/heheniuniu"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
 
             <!--牛牛自起-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 

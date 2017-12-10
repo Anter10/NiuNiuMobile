@@ -780,40 +780,38 @@ end
 
 --  网络连接错误
 function Util:fun_Offlinepopwindow( popup_text ,_obj,_call)
-                    -- if not Tools.hasnet then
-                        self.Offlinepopwindow = cc.CSLoader:createNode("csb/Offlinepopwindow.csb");
-                        _obj:addChild(self.Offlinepopwindow,222300,300)
+                     -- if not Tools.hasnet then
+                        local Offlinepopwindow = cc.CSLoader:createNode("csb/Offlinepopwindow.csb");
+                        cc.Director:getInstance():getRunningScene():addChild(Offlinepopwindow,92222222300)
                         
                         print("当前的网络异常错误1")
-                        local Offlpop_bt    = self.Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_bt")
-                        local Offlpop_text  = self.Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_text")
-
+                        local Offlpop_bt    = Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_bt")
+                        local Offlpop_text  = Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_text")
+                       
                         Offlpop_text:setTextHorizontalAlignment(1)
                         Offlpop_text:setTextVerticalAlignment(0)
                         Offlpop_text:ignoreContentAdaptWithSize(false); 
-                        Offlpop_text:setSize(cc.size(700, 200))
+                        Offlpop_text:setContentSize(cc.size(700, 200))
                         
                         Offlpop_text:setString(popup_text)
+                        local call = nil
                         if _call then
-                          local call=_call
+                          call=_call
                         end
-
                         Offlpop_bt:addTouchEventListener(function(sender, eventType  )
-                                   if eventType ~= ccui.TouchEventType.ended then
+                                  if eventType ~= ccui.TouchEventType.ended then
                                           return
-                                   end
-                                   dump(_call)
+                                  end
+                                  dump(_call)
                                   if _call then
                                     _call(self,1)
-                                    _obj:removeChildByTag(300)
-                                    return
                                   end
-                                  _obj:removeChildByTag(300)
+                                  Offlinepopwindow:removeFromParent(true)
                         end)
                       
                       
-                      return  self.Offlinepopwindow
-                -- end
+                      return  Offlinepopwindow
+                 -- end
 
 end
 

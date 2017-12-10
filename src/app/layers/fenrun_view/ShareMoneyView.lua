@@ -36,6 +36,8 @@ function ShareMoneyView:ctor()
         tLayer:setCSize(visibleSize)
         local exitLayer= cc.CSLoader:createNode("csb/fenrun.csb")
         exitLayer:setName("fenrunLayer")
+        exitLayer:getChildByName("Text_2"):setFontSize(45)
+        exitLayer:getChildByName("Text_2"):setText("话费兑换请联系微信客服  \n微信号："..Tools.Channel().wxkfh)
         tLayer:addChild(exitLayer)
         tLayer:setName("lingqufenrun");
         self:addChild(tLayer)
@@ -68,7 +70,7 @@ function ShareMoneyView:ctor()
 
     qq.tools.button(self.bottom, "adddia", 
     function()
-        self:addChild(require("src.app.layers.shop_view.ShopView").new(),455)
+        self:addChild(require("app.layers.shop_view.ShopView").new(),455)
     end
     , true) 
     

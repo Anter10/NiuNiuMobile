@@ -12,18 +12,15 @@ function ServerWS:ClientTickMsg()
     local data = phen:SerializeToString()
     local data_=tostring(mas)..data
     if not hasInternet() then
-       -- if firsthasnotinternet then
-          -- firsthasnotinternet = false
-        self:fun_Offlinepopwindow( "网络连接断开，请检查网络后再试!" ) 
-       -- end
-       -- firsthasnotinternet = true
+       self:fun_Offlinepopwindow( "网络连接断开，请检查网络后再试!" ) 
+    else
+       Tools.hasnet = false
     end
     ServerWS:Instance():sendChatMsg(data_,"ClientTickMsg", true)
 end
 
 --登陆请求
 function ServerWS:UserLoginMsgReq(logintype)
-
     local mas=Message_config.TYPES.MSG_C_2_L_LOGIN_REQ
     local phen =message_pb.UserLoginMsgReq()
     phen.msg_ID=mas
@@ -65,6 +62,9 @@ function ServerWS:UserLoginMsgRes_callback()
         dump(self.msg.head)
         dump(self.msg.nick)
         dump(self.msg.openID)
+
+        print("登陆返回的数据  ",json.encode(decodeMsgData(self.msg)))
+        LocalData:Instance():set_NotifyMoneyMsg(nil)
         LocalData:Instance():set_loading(self.msg)
 end
 

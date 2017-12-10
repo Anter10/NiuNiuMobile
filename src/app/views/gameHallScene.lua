@@ -286,20 +286,32 @@ function gameHallScene:init()
     -- print("AllRequire.ui.gameHallSceneccname = ",AllRequire.ui.gameHallScene)
     -- 微信绑定按钮
      local function weichatlink()
-       local layer = require("src.app.layers.wechat_link.WeChatLink").new()
-        
-        self:addChild(layer,320)
-        print("微信绑定")
+        if not getYKLogin() then
+           local layer = require("src.app.layers.wechat_link.WeChatLink").new()
+           self:addChild(layer,320)
+        end
      end
-     qq.tools.button(g_bg:getChildByName("n_bg"), "weichat_link", weichatlink, true) 
+
+     if getYKLogin()  or not Tools.channelandioscompany then
+        g_bg:getChildByName("n_bg"):getChildByName("weichat_link"):setVisible(false)
+     else
+        qq.tools.button(g_bg:getChildByName("n_bg"), "weichat_link", weichatlink, true) 
+     end
+     
     -- 头像分润按钮
     local function shareMoney()
-        local layer = require("src.app.layers.fenrun_view.ShareMoneyView").new()
-
-        self:addChild(layer,320)
-        print("分润功能")
+        if not getYKLogin() then
+           local layer = require("src.app.layers.fenrun_view.ShareMoneyView").new()
+           self:addChild(layer,320)
+        end
     end
-    qq.tools.button(g_bg:getChildByName("n_bg"), "n_head_k", shareMoney, true) 
+    if getYKLogin() or not Tools.channelandioscompany then
+       g_bg:getChildByName("n_bg"):getChildByName("n_head_k"):setVisible(false)
+    else
+       qq.tools.button(g_bg:getChildByName("n_bg"), "n_head_k", shareMoney, true) 
+    end
+
+    
     
 
     local Button_10=self.gameScene:getChildByName("Button_10")--消息
@@ -328,7 +340,7 @@ function gameHallScene:init()
                        return
                   end
                   if LocalData:Instance():get_Gameswitch()  ==  0  then
-                     local newmall = AllRequire.ui.ShopView.create()  --设置 
+                     local newmall = require("layers.shop_view.ShopView").create()  --设置 
                      self:addChild(newmall,100,100)
                       
                        -- local luaoc = require"cocos.cocos2d.luaoc"
@@ -336,7 +348,7 @@ function gameHallScene:init()
                 
                   else
                     -- self:fun_notOpen(self,100,150,9998)
-                      local newmall = AllRequire.ui.ShopView.create()  --设置 
+                      local newmall = require("layers.shop_view.ShopView").create()  --设置 
                       self:addChild(newmall,100,100)
                   end
                   
@@ -506,6 +518,7 @@ function gameHallScene:ref_user_info()
         Server:Instance():request_pic(msg.head,"hallshead")
      end
 end
+
 function gameHallScene:ref_user_heard()
   local msg=LocalData:Instance():get_loading()
   self.gameScene:getChildByName("n_head"):loadTexture(Util:sub_str(msg.head))

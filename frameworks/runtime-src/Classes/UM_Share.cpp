@@ -128,9 +128,9 @@ void UM_Share::shareWithAll(string sharePicPath,string title,string content,stri
     platforms->push_back(umeng::social::WEIXIN_CIRCLE);
     //sdk->setPlatforms(platforms);
     //掌间牛牛
-//    string url="http://www.sharkpoker.cn/download/game_id/21/homenum/";
+     string url="http://www.sharkpoker.cn/download/game_id/21/homenum/";
     //和和牛牛
-    string url="http://www.sharkpoker.cn/download/game_id/24/homenum/";
+//    string url="http://www.sharkpoker.cn/download/game_id/24/homenum/";
     url+=openid.c_str();
     
     sdk->setBoardDismissCallback(boarddismiss_selector(boardDismissCallback));

@@ -13,6 +13,7 @@ function HouseDetailView:ctor(data)
      self:addChild(require("src.app.layers.touchlayer").create(), -1)
      self:addCSB()
      HouseDetailView.detailLayer = self
+     self:enableNodeEvents()
 end
 
 
@@ -312,6 +313,10 @@ function HouseDetailView:copyHouse()
    -- require("lord/src/lordmsg").UserSelectRoomsMsgReq();
 end
 
+
+function HouseDetailView:onExit_( ... )
+    HouseDetailView.detailLayer = nil
+end
 
 
 

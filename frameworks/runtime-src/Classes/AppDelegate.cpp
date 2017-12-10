@@ -107,7 +107,7 @@ bool AppDelegate::applicationDidFinishLaunching()
     
     
     LuaStack* stack = engine->getLuaStack();
-    stack->setXXTEAKeyAndSign("2dxLua", strlen("2dxLua"), "XXTEA", strlen("XXTEA"));
+    stack->setXXTEAKeyAndSign("cnzhangyuhudong2dxLuaniuniu", strlen("cnzhangyuhudong2dxLuaniuniu"), "cnzhangyuhudongXXTEAniuniu", strlen("cnzhangyuhudongXXTEAniuniu"));
 
     //register custom function
 //    LuaStack* stack = engine->getLuaStack();WebView Text Director UserDefault WebSocket

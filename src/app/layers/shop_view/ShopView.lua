@@ -16,6 +16,7 @@ end
 
 function ShopView:ctor()
      self.super.ctor(self)
+     print("当前的搜索路径  ",json.encode(cc.FileUtils:getInstance():getSearchPaths()))
      self:addChild(require("src.app.layers.touchlayer").create(), -1)
      self:addCSB()
 end
@@ -33,9 +34,10 @@ function ShopView:addCSB()
     end
 
     self.bottomnode = self.layer:getChildByName("bottom")
-    qq.tools.button(self.layer, "close", closeCallBack, true) 
+    -- self.bottomnode:setScale(1.2)
+    qq.tools.button(self.bottomnode, "close", closeCallBack, true) 
     self.size = self.bottomnode:getContentSize()
-    
+    self.bottomnode:setPosition(cc.p(display.cx, display.cy))
 
     self.lx, self.ly = self.bottomnode:getChildByName("pos"):getPosition()
     

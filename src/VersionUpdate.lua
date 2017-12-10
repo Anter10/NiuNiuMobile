@@ -6,10 +6,10 @@ local targetPlatform = cc.Application:getInstance():getTargetPlatform()
 
 local partchar = "."
 
-local precurversion = "2.0.0"
+local precurversion = "2.0.3"
 
-
-local curversion = "2.0.0"
+-- local curversion = "2.0.4"
+local curversion = "2.0.6"
 
 -- 游戏是否更新过
 VersionUpdate.into = false
@@ -76,10 +76,14 @@ end
 
 
 
-
+function VersionUpdate:ctor( callback )
+   self.gocallback = gocallback
+    self:enableNodeEvents()
+end
 
 -- 更新指定的版本资源
-function VersionUpdate:ctor(callback)
+function VersionUpdate:onEnter()
+    Tools.hasnet = false
     local vvv1 = "1.0.1"
     local vvv2 = "1.0.2"
     VersionUpdate.into = true
@@ -115,8 +119,8 @@ function VersionUpdate:ctor(callback)
     self.curversion     = nil
     self.versions       = {}
     self.hasupdatefiles = false
-    self:enableNodeEvents()
-    self.gocallback = callback
+   
+
     self.callback = function()
         AllRequire.requireAll()
         if cc.Director:getInstance():getRunningScene() then
@@ -128,7 +132,7 @@ function VersionUpdate:ctor(callback)
     end
 
      
-    self:addCSB()
+    
 
     -- 开始Http请求资源目录
     local function getVersionData(data)
@@ -361,8 +365,8 @@ function VersionUpdate:ctor(callback)
                     end
                  end
              end
-   
              if compel then
+                self:addCSB()
                 if self.isiosplatform then
                    if self.callback then
                       self:callback()
@@ -382,9 +386,9 @@ function VersionUpdate:ctor(callback)
                          os.exit()
                     end)
                 end
-                
              else
                 local function call()
+                    self:addCSB()
                     self:startUpdate()
                 end
                 local call = cc.CallFunc:create(call)

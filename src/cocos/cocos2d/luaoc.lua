@@ -2,9 +2,9 @@
 local luaoc = {}
 
 local callStaticMethod = LuaObjcBridge.callStaticMethod
-dump("调取oc")
+-- dump("调取oc")
 function luaoc.callStaticMethod(className, methodName, args)
-    dump("调取oc成功")
+    -- dump("调取oc成功")
     local ok, ret = callStaticMethod(className, methodName, args)
     if not ok then
         local msg = string.format("luaoc.callStaticMethod(\"%s\", \"%s\", \"%s\") - error: [%s] ",

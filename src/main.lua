@@ -1,6 +1,16 @@
 
 cc.FileUtils:getInstance():setPopupNotify(false)
+
+cc.FileUtils:getInstance():setSearchPaths({})
 cc.FileUtils:getInstance():addSearchPath(cc.FileUtils:getInstance():getWritablePath())
+cc.FileUtils:getInstance():addSearchPath(cc.FileUtils:getInstance():getWritablePath().."src/app/")
+cc.FileUtils:getInstance():addSearchPath(cc.FileUtils:getInstance():getWritablePath().."res/")
+
+cc.FileUtils:getInstance():addSearchPath("res/")
+cc.FileUtils:getInstance():addSearchPath("src/")
+cc.FileUtils:getInstance():addSearchPath("src/app/")
+
+
 require "src/app/protobuf/containers"
 require "src/app/protobuf/decoder"
 require "src/app/protobuf/descriptor"
@@ -64,7 +74,6 @@ _state_hallscenen=true
 local function main()
 	cc.FileUtils:getInstance():addSearchPath("src/app/protobuf")
     cc.FileUtils:getInstance():addSearchPath("res/niuniu_shangcheng")
-    
     cc.FileUtils:getInstance():addSearchPath("files")
 	print("开始")
     
@@ -145,12 +154,10 @@ end
 function hasInternet()
      if (cc.PLATFORM_OS_IPHONE == targetPlatform) or (cc.PLATFORM_OS_IPAD == targetPlatform) then
         local ok, ret = require"cocos.cocos2d.luaoc".callStaticMethod("AppController", "isExistenceNetwork")
-        print("当前是否安装了微信555 - ",ok,ret)
+        -- print("当前是否安装了微信555 - ",ok,ret)
         if  ret == 1 then
-            Tools.hasnet = true
             return true
         else
-            Tools.hasnet = false
             return false
         end
      elseif cc.PLATFORM_OS_ANDROID == targetPlatform then
@@ -159,10 +166,8 @@ function hasInternet()
         -- 判断是否有微信
         local ok, haswx = luaj.callStaticMethod(className, "isNetworkConnected",{},"()Z")
         if haswx then
-           Tools.hasnet = true
            return true
         else
-           Tools.hasnet = false
            return false
         end
      end

@@ -211,6 +211,7 @@ end
 function ServerWS:sendChatMsg(package,status, noprint)
   if not noprint then
      printError("那儿发送的数据")
+     print(hasInternet(), "当前的状态= ",self.socket:getReadyState())
   end
    
   if not status or status~="ClientTickMsg"  then
@@ -218,12 +219,12 @@ function ServerWS:sendChatMsg(package,status, noprint)
         self:fun_loadbar(cc.Director:getInstance():getRunningScene(),999999) 
      end
   end 
-  
-  print(hasInternet(), "当前的状态= ",self.socket:getReadyState())
-  if (not hasInternet() or self.socket:getReadyState() == 0) and not noprint then
+ 
+ 
+  if not hasInternet() and not noprint then
      self:fun_Offlinepopwindow( "网络连接异常，请检查网络后再试!" )
-  elseif (not hasInternet() or self.socket:getReadyState() == 3 or self.socket:getReadyState() == 2) and not noprint then
-     self:fun_Offlinepopwindow( "网络连接断开，请检查网络后再试!" ) 
+  elseif self.socket:getReadyState() ~= 1 and not noprint then
+     self:fun_Offlinepopwindow( "与服务器断开连接，请重新再试!" ) 
   else
      if self.socket:getReadyState() == 1 then
         self:removeBoomFrame()
@@ -240,7 +241,7 @@ function ServerWS:removeBoomFrame()
    --    self.Offlinepopwindow:removeFromParent(true)
    --    self.Offlinepopwindow = nil
    -- end
-   self:setShows(false)
+   -- self:setShows(false)
 end
 
 function ServerWS:setShows(ff)
@@ -250,12 +251,10 @@ function ServerWS:setShows(ff)
 end
 
 function ServerWS:fun_Offlinepopwindow( popup_text )
-         print("self.showdiscon = ",self.showdiscon)
+         print("self.showdiscon = ",self.showdiscon, Tools.hasnet)
          if not Tools.hasnet then
     	      self._zy_socket=0
-            cc.Director:getInstance():getRunningScene():removeChildByTag(300)
             Tools.hasnet = true
-
             local Offlinepopwindow = cc.CSLoader:createNode("csb/Offlinepopwindow.csb")
             Offlinepopwindow:addChild(require("src.app.layers.touchlayer").create(), -1)
             cc.Director:getInstance():getRunningScene():addChild(Offlinepopwindow,999999300,999300)
@@ -269,13 +268,13 @@ function ServerWS:fun_Offlinepopwindow( popup_text )
             Offlpop_text:setSize(cc.size(700, 200))
 
             Offlpop_bt:addTouchEventListener(function(sender, eventType  )
-                Tools.hasnet = false
                  if eventType == ccui.TouchEventType.ended then  
-                    
                     print("当前的网络异常错误eee",self.showdiscon)
-                    if self.socket:getReadyState() ~= 1 then
+                    -- if self.socket:getReadyState() ~= 1 then
                        ServerWS:Instance():connect()
-                    end
+                    -- end
+                    Tools.hasnet = false
+                    -- Tools.hasnet = false
                     if cc.Director:getInstance():getRunningScene() then
                        cc.Director:getInstance():replaceScene(require("src.app.views.loadScene").new())
                     end 

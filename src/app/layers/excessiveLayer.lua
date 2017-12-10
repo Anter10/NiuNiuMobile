@@ -77,6 +77,7 @@ end
 function excessiveLayer:onExit_()
     print("进入excessiveLayer:onExit ")
     self:close_update()
+    excessiveLayer.excessiveLayer = nil
 end
 
 return excessiveLayer

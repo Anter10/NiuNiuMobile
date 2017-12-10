@@ -28,8 +28,8 @@ local director = cc.Director:getInstance()
 local view = director:getOpenGLView()
 
 if not view then
-    local width = 960
-    local height = 640
+    local width = 1920
+    local height = 1080
     if CC_DESIGN_RESOLUTION then
         if CC_DESIGN_RESOLUTION.width then
             width = CC_DESIGN_RESOLUTION.width

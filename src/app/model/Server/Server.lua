@@ -105,7 +105,7 @@ end
 function Server:HttpSendpost( url ,data , func, notk )
     --生成数据
     local _param = data
-    print("请求地址 = ",url)
+    print("请求地址 = ",url, postnotk)
     --  相关的请求回调设置
     local callfunc = func
     local posturl = url
@@ -125,23 +125,33 @@ function Server:HttpSendpost( url ,data , func, notk )
                end    
                func(output)
             else
-               local showtext = "网络请求错误，请重试。"
-               print("什么意思啊啊")
+               
                if postnotk then
-                  Util:fun_Offlinepopwindow(showtext,cc.Director:getInstance():getRunningScene(),function (sender, eventType)
-                        local function call()
-                             self:HttpSendpost(posturl ,postdata , callfunc,postnotk)  
-                        end
-                        local call1 = cc.CallFunc:create(call)
-                        local seq  = cc.Sequence:create(cc.DelayTime:create(2),call1 )
-                        cc.Director:getInstance():getRunningScene():runAction(seq)
-
-                  end)
+                  local showtext = "网络请求错误，请重试。"
+                  -- Util:fun_Offlinepopwindow(showtext,function(sender, eventType)
+                  --       local function call()
+                  --            self:HttpSendpost(posturl ,postdata , callfunc,postnotk)  
+                  --       end
+                  --       local call1 = cc.CallFunc:create(call)
+                  --       local seq  = cc.Sequence:create(cc.DelayTime:create(2),call1 )
+                  --       cc.Director:getInstance():getRunningScene():runAction(seq)
+                  -- end)
+                  self:fun_Offlinepopwindow( showtext ,
+                      function(sender, eventType)
+                            local function call()
+                                 self:HttpSendpost(posturl ,postdata , callfunc,postnotk)  
+                            end
+                            local call1 = cc.CallFunc:create(call)
+                            local seq  = cc.Sequence:create(cc.DelayTime:create(2),call1 )
+                            cc.Director:getInstance():getRunningScene():runAction(seq)
+                      end)
                else
                   self:HttpSendpost(posturl ,postdata , callfunc,postnotk)  
                end
             end 
     end
+
+
 
     --  相关的请求设置 
     request:open("GET",url,true)
@@ -149,6 +159,48 @@ function Server:HttpSendpost( url ,data , func, notk )
     --  开始请求
     request:send()
 end
+
+
+
+function Server:fun_Offlinepopwindow( popup_text, callBack )
+         print(Tools.hasnet,"self.showdiscon = ",self.showdiscon)
+         -- if not Tools.hasnet then
+             
+            -- Tools.hasnet = true
+            local callBack = callBack
+            local Offlinepopwindow = cc.CSLoader:createNode("csb/Offlinepopwindow.csb")
+            Offlinepopwindow:addChild(require("src.app.layers.touchlayer").create(), -1)
+            print("当前的网络异常错误eeeeee",self.showdiscon)
+            cc.Director:getInstance():getRunningScene():addChild(Offlinepopwindow,999999300,999300)
+            
+            local Offlpop_bt = Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_bt")
+            local Offlpop_text = Offlinepopwindow:getChildByName("bg"):getChildByName("Offlpop_text")
+            Offlpop_text:setString(popup_text)
+            Offlpop_text:setTextHorizontalAlignment(1)
+            Offlpop_text:setTextVerticalAlignment(0)
+            Offlpop_text:ignoreContentAdaptWithSize(false); 
+            Offlpop_text:setSize(cc.size(700, 200))
+           print("当前的网络异常错误eee",self.showdiscon)
+            Offlpop_bt:addTouchEventListener(function(sender, eventType  )
+                 if eventType == ccui.TouchEventType.ended then  
+                    -- Tools.hasnet = false
+                    -- if self.socket:getReadyState() ~= 1 then
+                    --    ServerWS:Instance():connect()
+                    -- end
+                    if callBack then
+                       callBack()
+                    end
+                    Offlinepopwindow:removeFromParent(true)
+                    -- -- Tools.hasnet = false
+                    -- if cc.Director:getInstance():getRunningScene() then
+                    --    cc.Director:getInstance():replaceScene(require("src.app.views.loadScene").new())
+                    -- end 
+                end 
+            end)
+        -- end
+
+end
+
 
 function Server:on_request_finished_pic(xhr , command,num,pic_url)
     
@@ -233,7 +285,7 @@ function Server:request_http_open(command , params)
       
         -- table.foreach(output.headers,print)  
       end  
-    local params_encoded = json.encode(params)
+     local params_encoded = json.encode(params)
       -- 注册脚本方法回调  
       xhr:registerScriptHandler(function() onReadyStateChange() end)
       xhr:send(params_encoded)-- 发送请求  

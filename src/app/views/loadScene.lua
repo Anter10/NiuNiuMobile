@@ -48,9 +48,7 @@ function loadScene:fun_load_upt( )
 end
 
 function loadScene:ctor()
-    Tools.hasnet = false
     AllRequire.requireAll()
-    dump("牛牛====----88--=-=-=-=-=",require("src.VersionUpdate").into)
     if not require("src.VersionUpdate").into then
        if not isIOS() or Tools.iscompanyipa  then
           require("src.VersionUpdate").into = false
@@ -148,7 +146,7 @@ function loadScene:init()
     end
     
     -- 是否隐藏游客
-     print("限制登陆按钮",hswx,Tools.channelandioscompany)
+    print("限制登陆按钮",hswx,Tools.channelandioscompany)
     if Tools.channelandioscompany then
        back_bt_yk:setVisible(false)
        true_bt:setPositionX(display.cx + 30)
@@ -360,6 +358,9 @@ end
 function loadScene:onEnter()
       print("哦乒乒乓乓乒乒乓乓片")
       self._lo=0
+      if Tools.hasnet then
+         Tools.hasnet = false
+      end
      --  Server:Instance():request_http_version()--版本检测更新
       
      --  --Util:player_music_hit("bg_music0",true )

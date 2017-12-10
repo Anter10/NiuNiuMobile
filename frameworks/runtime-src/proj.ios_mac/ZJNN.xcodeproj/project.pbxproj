@@ -770,8 +770,8 @@
 				ED278BEE1F395C7400E85671 /* protobuf */,
 				ED5AD6761F2B14FE00A7FE9E /* UM_Share.cpp */,
 				ED5AD6771F2B14FE00A7FE9E /* UM_Share.hpp */,
-				845DB05D1F4C50D800466ECE /* MessageNotify.cpp */,
 				845DB05E1F4C50D800466ECE /* MessageNotify.hpp */,
+				845DB05D1F4C50D800466ECE /* MessageNotify.cpp */,
 				8457BD561F4D50E700DA7EA9 /* lua_CloudVoice.cpp */,
 				8457BD571F4D50E700DA7EA9 /* lua_CloudVoice.hpp */,
 				845DB0491F4C076800466ECE /* CloudVoice.cpp */,
@@ -852,6 +852,7 @@
 				TargetAttributes = {
 					F293B3C715EB7BE500256477 = {
 						DevelopmentTeam = WX2Q9N5RNL;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -1234,8 +1235,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = WX2Q9N5RNL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1281,6 +1284,8 @@
 					"$(SRCROOT)/../Classes/umeng_ios_social_sdk/UMSocial_Sdk_Extra_Frameworks/WeChat/WechatSDK/libWeChatSDK.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.zhangyuhudong.niuniu;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1296,8 +1301,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COMPRESS_PNG_FILES = NO;
-				DEVELOPMENT_TEAM = WX2Q9N5RNL;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1342,6 +1349,8 @@
 					"$(SRCROOT)/../Classes/umeng_ios_social_sdk/UMSocial_Sdk_Extra_Frameworks/WeChat/WechatSDK/libWeChatSDK.a",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = cn.zhangyuhudong.niuniu;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				STRIP_PNG_TEXT = NO;
 				TARGETED_DEVICE_FAMILY = 1;

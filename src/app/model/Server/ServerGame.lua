@@ -71,8 +71,6 @@ function ServerWS:UserCreateRoomMsgRes_callback()
                 end
 	   			)
 	   		end
-
-
 			return
 		end
 		

@@ -39,7 +39,7 @@ function PayMethodView:requestPay()
      tdata.want_num = self.data.diamond
      tdata.ip = ip
      -- tdata.fee =  "0.01"
-     local payrequesturl = "http://wx.sharkpoker.cn/index.php/Home/ShopReturn/getPrePayOrder?account_id="..tdata.account_id.."&fee="..tdata.fee.."&want_num="..tdata.want_num
+     local payrequesturl = "http://wx.sharkpoker.cn/index.php/Home/ShopReturn/getPrePayOrder?account_id="..tdata.account_id.."&fee="..tdata.fee.."&want_num="..tdata.want_num.."&channel="..Tools.Channel().updatename.."&version"..Parameter.version
      Server:Instance():HttpSendpost(payrequesturl ,{}, function(data) 
             local time = tostring(os.time())
 
@@ -66,7 +66,7 @@ function PayMethodView:requestPay()
                end
             else
                -- 没有安装微信处理
-
+               Tools.showError("没有安装微信，安装微信后方可支付!!!")
             end
 
             

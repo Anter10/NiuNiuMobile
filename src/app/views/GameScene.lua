@@ -794,10 +794,10 @@ end
 
 
 function GameScene:is_dismis_room()
-      print("---is_dismis_room--",LocalData:Instance():get_Room_round(),self.gameControl.user_all_num)
+     
       local c_msg=LocalData:Instance():get_NotifyRoomDisbandMsg()
       self:removeChildByTag(9999)
-
+      print("msgmsgmsgc_msgc_msgc_msg当前的socket数据信息 = ",json.encode(decodeMsgData(c_msg)))
       if c_msg.result==1 then 
           --self:removeChildByTag(52100)
           if LocalData:Instance():get_Room_round()==0  then
@@ -830,7 +830,7 @@ function GameScene:is_dismis_room()
         self.dis_txt_table[6]:loadTexture("niuniu_tanchuang/n_ing_jiesanfangjian5.png")
         self:fun_gamescene_time(2)
         local function removeThis()
-                  self:removeChildByTag(52100)                       
+             self:removeChildByTag(52100)                       
        end
 
        self.dis_txt_table[6]:runAction(cc.Sequence:create(cc.DelayTime:create(1),cc.CallFunc:create(removeThis)))
@@ -847,6 +847,7 @@ function GameScene:fun_gamescene_time( _time,_name)
          self.gamenscene_ct_time=_time
          self.gamenscene_ct_nanme=_name
          local countTime = cc.CSLoader:createNode("csb/countTime.csb")
+         countTime:retain()
          countTime:setPosition(cc.p(1400-960,790-613))
          self.gamescene_g_bg:addChild(countTime,1,110)
          self.gamescene_countTime_text=countTime:getChildByName("countTime_text")
@@ -864,7 +865,7 @@ function GameScene:update(dt)
        self.sconde_time=0  
       self.gamenscene_ct_time=self.gamenscene_ct_time-1
       if self.gamenscene_ct_time <0 then 
-           self:unscheduleUpdate()
+          self:unscheduleUpdate()
           if self.gamescene_countTime_text then
               if self.gamenscene_ct_nanme then
                  self.dis_text:setString(DISMIS_TEXT[7])
@@ -873,19 +874,19 @@ function GameScene:update(dt)
                  self:fun_gamenscene_update(5)
                  self.gamenscene_ct_nanme=nil
               end
-              self.gamescene_countTime_text:getParent():removeFromParent()
+              -- self.gamescene_countTime_text:getParent():removeFromParent()
               self.gamescene_countTime_text=nil
               self:removeChildByTag(52100)
-              if not self:game_over() then
-                self:removeChildByTag(52100, true)
-                self:call_back_up_layer()
-                
+              local gameover = self:game_over()
+              print("gameovergameovergameover = ",gameover)
+              if gameover then
+                 self:removeChildByTag(52100, true)
+                 -- self:call_back_up_layer()
               end
           end
-          
-         return
+          return
      end
-      self.gamescene_countTime_text:setString(self.gamenscene_ct_time)
+     self.gamescene_countTime_text:setString(self.gamenscene_ct_time)
       
       
 end
@@ -933,7 +934,7 @@ end
 
 function GameScene:game_over()
     local game_over_data=LocalData:Instance():get_NotifyRoomAllScoreMsg()
-    -- print("大结算消息 ------",game_ovexxxxr_data.allscore[1].name)
+    print("大结算消息 ------",json.encode(decodeMsgData(game_over_data)))
     if not game_over_data then return false end
       print("大结算消息 222------",game_over_data.allscore[1].name)
     --LocalData:Instance():set_NotifyRoomAllScoreMsg(nil)
@@ -988,7 +989,7 @@ function GameScene:game_over()
     local jie_xiangqing=game_over:getChildByName("jie_xiangqing")--详情
       jie_xiangqing:addTouchEventListener((function(sender, eventType  )
          if eventType ~= ccui.TouchEventType.ended then
-            return
+            return 
         end
         Util:all_layer_Sound("Audio_Button_Click")
         local checkLayer=require("app.layers.checkLayer").new()
@@ -1036,11 +1037,7 @@ function GameScene:game_over()
         jie_share:setVisible(true)
         jie_xiangqing:setVisible(true)
     end
-
-
-
-
-      return true
+    return true
 end
 
 function GameScene:fun_loadbar( )
