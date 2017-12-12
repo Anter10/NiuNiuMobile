@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/app/ZJNN.iml" filepath="$PROJECT_DIR$/app/ZJNN.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/libcocos2dx.iml" filepath="$PROJECT_DIR$/../../cocos2d-x/cocos/platform/android/libcocos2dx/libcocos2dx.iml" />
       <module fileurl="file://$PROJECT_DIR$/proj.android-studio.iml" filepath="$PROJECT_DIR$/proj.android-studio.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/proj.android-studio-ZJNN.iml" filepath="$PROJECT_DIR$/app/proj.android-studio-ZJNN.iml" />
     </modules>
   </component>
 </project>

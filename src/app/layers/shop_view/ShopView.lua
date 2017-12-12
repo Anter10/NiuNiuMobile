@@ -42,6 +42,13 @@ function ShopView:addCSB()
     self.lx, self.ly = self.bottomnode:getChildByName("pos"):getPosition()
     
 
+   if cc.PLATFORM_OS_IPAD == targetplatform then
+       self.bottomnode:setAnchorPoint(cc.p(0.5,0.5))
+       self.bottomnode:setPositionX(display.cx)
+       self.bottomnode:setPositionY(display.cy)
+       self.bottomnode:setScale(0.85)
+    end
+
     
     self:requestShopData()
 end
